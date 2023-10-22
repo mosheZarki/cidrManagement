@@ -31,11 +31,7 @@ class IpInterceptor(private val repo: CidrRepository) : HandlerInterceptor {
         // For crud apis, act like ot other server bypass for interview only
         val whitelist = listOf("/api/cidr", "/swagger", "/v3/api-docs")
 
-        if (whitelist.any { request.requestURI.contains(it) }) {
-            return true
-        }
-
-        return false
+        return whitelist.any { request.requestURI.contains(it) }
     }
 
 
