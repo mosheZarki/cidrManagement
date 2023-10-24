@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 
 
 @Document
+// For query perf on isAllowed logic
 @CompoundIndex(def = "{'startIp': 1, 'endIp': 1}")
 data class CidrDocument(
         @Id

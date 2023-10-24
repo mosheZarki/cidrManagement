@@ -26,19 +26,20 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.jetbrains.kotlin:kotlin-reflect'
     implementation("org.hibernate.validator:hibernate-validator:6.2.0.Final")
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.glassfish:javax.el:3.0.1-b08'
     implementation("javax.validation:validation-api:2.0.1.Final")
+    implementation 'org.springdoc:springdoc-openapi-ui:1.7.0' // Use the appropriate version
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-tasks.withType(KotlinCompile) {
+tasks.withType(KotlinCompile).configureEach {
     kotlinOptions {
         freeCompilerArgs += '-Xjsr305=strict'
         jvmTarget = '17'

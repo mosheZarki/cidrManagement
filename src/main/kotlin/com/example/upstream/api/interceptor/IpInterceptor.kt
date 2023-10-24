@@ -19,7 +19,7 @@ class IpInterceptor(private val repo: CidrRepository) : HandlerInterceptor {
             throw ForbiddenException("IP not allowed")
         }
 
-        return true;
+        return true
     }
 
 
@@ -29,12 +29,14 @@ class IpInterceptor(private val repo: CidrRepository) : HandlerInterceptor {
 
     private fun isFilteredUri(request: HttpServletRequest): Boolean {
         // For crud apis, act like ot other server bypass for interview only
-        val whitelist = listOf("/api/cidr", "/swagger", "/v3/api-docs")
+        val whitelist = listOf("/api/cidr", "/swagger", "/v3/api-docs", "/error","/favicon.ico")
 
         return whitelist.any { request.requestURI.contains(it) }
     }
 
 
+    // This is the primary function, that by design data ia ready to use for support high performance on demand, the range is defined as
+    // compound index on mongo so query is efficient
     fun isAllowed(ip: String): Boolean {
         val ipAsLong = CIDRUtils.ipToLong(ip)
         return repo.findByStartIpLessThanEqualAndEndIpGreaterThanEqual(ipAsLong,ipAsLong).isEmpty()
